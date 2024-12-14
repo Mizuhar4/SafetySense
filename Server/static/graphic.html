@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Calidad del Aire en Tiempo Real</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Gráfico de Calidad del Aire en Tiempo Real</h1>
+    <canvas id="airQualityChart" width="800" height="400"></canvas>
+    <script>
+        async function fetchData() {
+            const response = await fetch('http://3.215.122.64:8081/sensor/data');
+            return await response.json();
+        }
+
+        async function updateChart(chart) {
+            const data = await fetchData();
+            if (data.length) {
+                const lastItem = data[data.length - 1]; 
+                const timestamp = new Date(lastItem.timestamp).toLocaleTimeString();
+                const pm25 = lastItem.pm25_standard;
+                const pm10 = lastItem.pm10_standard;
+
+                chart.data.labels.push(timestamp);
+                chart.data.datasets[0].data.push(pm25);
+                chart.data.datasets[1].data.push(pm10);
+                
+                if (chart.data.labels.length > 50) {
+                    chart.data.labels.shift();
+                    chart.data.datasets[0].data.shift();
+                    chart.data.datasets[1].data.shift();
+                }
+
+                chart.update();
+            }
+        }
+
+        const ctx = document.getElementById('airQualityChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'PM2.5 (µg/m³)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: true,
+                        data: [],
+                    },
+                    {
+                        label: 'PM10 (µg/m³)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: true,
+                        data: [],
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Concentración (µg/m³)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Hora del Día'
+                        }
+                    }
+                },
+                animation: {
+                    duration: 0 
+                }
+            }
+        });
+
+        setInterval(() => updateChart(chart), 2000);
+    </script>
+</body>
+</html>
