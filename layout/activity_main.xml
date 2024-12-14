@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SafetySense
+"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-medium" />
+
+    <!-- Icono Calidad del Aire -->
+    <ImageView
+        android:id="@+id/imageViewAirQuality"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_air_quality"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Calidad del Aire -->
+    <TextView
+        android:id="@+id/textViewAirQuality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PM2.5: --, PM10: --"
+        android:textSize="18sp"
+        android:layout_below="@id/imageViewAirQuality"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textViewAirQualityStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado PM2.5: --, Estado PM10: --"
+        android:textSize="16sp"
+        android:layout_below="@id/textViewAirQuality"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Icono Nivel de Ruido -->
+    <ImageView
+        android:id="@+id/imageViewNoiseLevel"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_noise"
+        android:layout_below="@id/textViewAirQualityStatus"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Nivel de Ruido -->
+    <TextView
+        android:id="@+id/textViewNoiseLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nivel de ruido: --"
+        android:textSize="18sp"
+        android:layout_below="@id/imageViewNoiseLevel"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Botón para iniciar medición -->
+    <Button
+        android:id="@+id/button_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Iniciar medición"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white" />
+</RelativeLayout>
